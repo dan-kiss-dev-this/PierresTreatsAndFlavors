@@ -1,0 +1,22 @@
+@{
+  Layout = "_Layout";
+}
+
+@model PierresTreatsAndFlavors.Models.Treat
+
+<h4>Add a new treate to your database</h4>
+<p>@Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger", @style = "font-weight: 600;"})</p>
+
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(model => model.Name)
+  @Html.TextBoxFor(model => model.Name)
+
+  @Html.LabelFor(model => model.Description)
+  @Html.TextBoxFor(model => model.Description)
+
+  <input type="submit" value="Add new treat" class="btn btn-default" />
+}
+
+<p>@Html.ActionLink("Show all treats", "Index")</p>
+
