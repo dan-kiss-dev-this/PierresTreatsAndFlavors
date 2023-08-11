@@ -114,5 +114,9 @@ namespace PierresTreatsAndFlavors.Controllers
       return RedirectToAction("Index");
     }
 
+    public ActionResult NotAllowed()
+    {
+      return View();
+    }
   }
 }
