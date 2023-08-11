@@ -11,6 +11,7 @@ using System.Security.Claims;
 
 namespace PierresTreatsAndFlavors.Controllers
 {
+  [Authorize]
   public class TreatsController : Controller
   {
     private readonly PierresTreatsAndFlavorsContext _db;
@@ -22,10 +23,9 @@ namespace PierresTreatsAndFlavors.Controllers
       _userManager = userManager;
     }
 
+    [AllowAnonymous]
     public async Task<ActionResult> Index()
     {
-      // string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      // ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
       List<Treat> allTreats = _db.Treats.ToList();
       return View(allTreats);
     }
@@ -45,6 +45,8 @@ namespace PierresTreatsAndFlavors.Controllers
       else
       {
         string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        Console.WriteLine(4848);
+        Console.WriteLine(userId);
         // if (userId != null)
         // {
         ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
@@ -61,13 +63,41 @@ namespace PierresTreatsAndFlavors.Controllers
     }
 
     public ActionResult Details(int id)
-        {
-            Treat thisTreat = _db.Treats
-            .Include(treat => treat.JoinFlavorTreats)
-            .ThenInclude(join => join.Flavor)
-            .FirstOrDefault(treat => treat.TreatId == id);
-            return View(thisTreat);
-        }
+    {
+      Treat thisTreat = _db.Treats
+      .AsNoTracking()
+      .Include(treat => treat.JoinFlavorTreats)
+      .ThenInclude(join => join.Flavor)
+      .FirstOrDefault(treat => treat.TreatId == id);
+      return View(thisTreat);
+    }
+
+    public ActionResult Edit(int id)
+    {
+      Treat thisTreat = _db.Treats
+        .Include(treat => treat.User)
+        .FirstOrDefault(treat => treat.TreatId == id);
+      Console.WriteLine(7777);
+      Console.WriteLine(thisTreat.User.Id);
+      return View(thisTreat);
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> Edit(Treat treat)
+    {
+      if (!ModelState.IsValid)
+      {
+        return View(treat);
+      }
+      else
+      {
+        string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        _db.Treats.Update(treat);
+        _db.SaveChanges();
+        return RedirectToAction("Index");
+     
+      }
+    }
 
   }
 }
