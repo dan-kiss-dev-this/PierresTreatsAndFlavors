@@ -2,7 +2,18 @@
     ViewData["Title"] = "Home Page";
 }
 
+@using PierresTreatsAndFlavors.Models;
+
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome to Pierre's Treats And Flavors</h1>
 </div>
+
+<hr>
+
+<h4>All Treats</h4>
+
+@* <h4>Your Treats</h4> *@
+
+@Html.ActionLink("Create or manage account", "Index", "AccountUser")
+
+
