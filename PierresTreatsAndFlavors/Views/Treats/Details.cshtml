@@ -1,0 +1,26 @@
+@{
+  Layout = "_Layout";
+}
+
+@using PierresTreatsAndFlavors.Models
+@model PierresTreatsAndFlavors.Models.Treat
+
+<h2>Recipe Details</h2>
+<hr />
+<h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h3>
+<br>
+<h3>@Html.DisplayNameFor(model => model.Description): @Html.DisplayFor(model => model.Description)</h3>
+
+<ul>
+  @foreach (FlavorTreat flavorTreat in Model.JoinFlavorTreats)
+  {
+    <li>@flavorTreat.Flavor.Taste</li>
+  }
+</ul>
+
+<p>@Html.ActionLink("Back to Treat List", "Index")</p>
+@* todo add error handeling if treat id does not exist *@
+@* todo do not show edit link if treat does not belong to user *@
+@* <p>@Html.ActionLink("Add a flavor to this Treat", "AddFlavor", new {id = Model.RecipeId})</p> *@
+@* <p>@Html.ActionLink("Edit this treat", "Edit", new { id = Model.TreatId})</p>
+<p>@Html.ActionLink("Delete this treat", "Delete", new { id = Model.TreatId})</p> *@

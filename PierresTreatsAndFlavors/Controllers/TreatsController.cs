@@ -31,26 +31,42 @@ namespace PierresTreatsAndFlavors.Controllers
     }
 
     public ActionResult Create()
-        {
-            return View();
-        }
+    {
+      return View();
+    }
 
     [HttpPost]
-        public async Task<ActionResult> Create(Treat treat)
+    public async Task<ActionResult> Create(Treat treat)
+    {
+      if (!ModelState.IsValid)
+      {
+        return View(treat);
+      }
+      else
+      {
+        string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        // if (userId != null)
+        // {
+        ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+        treat.User = currentUser;
+        _db.Treats.Add(treat);
+        _db.SaveChanges();
+        return RedirectToAction("Index");
+        // }
+        // else
+        // {
+        //   return RedirectToAction("Register", "AccountUser");
+        // }
+      }
+    }
+
+    public ActionResult Details(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(treat);
-            }
-            else
-            {
-                string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-                treat.User = currentUser;
-                _db.Treats.Add(treat);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            Treat thisTreat = _db.Treats
+            .Include(treat => treat.JoinFlavorTreats)
+            .ThenInclude(join => join.Flavor)
+            .FirstOrDefault(treat => treat.TreatId == id);
+            return View(thisTreat);
         }
 
   }
