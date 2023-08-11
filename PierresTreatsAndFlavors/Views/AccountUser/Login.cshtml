@@ -1,0 +1,27 @@
+@{
+  Layout = "_Layout";
+}
+
+@using PierresTreatsAndFlavors.ViewModels
+
+@model LoginViewModel
+
+<h2>Log in with your account</h2>
+
+<hr />
+
+@if (!ViewData.ModelState.IsValid)
+{
+  @Html.ValidationSummary("Please fix the following error(s) and then resubmit the form:")
+}
+
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(model => model.Email)
+  @Html.TextBoxFor(model => model.Email)
+
+  @Html.LabelFor(model => model.Password)
+  @Html.EditorFor(model => model.Password)
+
+  <input type="submit" value="Login" />
+}
