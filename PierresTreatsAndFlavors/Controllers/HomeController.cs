@@ -6,20 +6,21 @@ namespace PierresTreatsAndFlavors.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly PierresTreatsAndFlavorsContext _db;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(PierresTreatsAndFlavorsContext db)
     {
-        _logger = logger;
+        _db = db;
     }
 
     public IActionResult Index()
     {
-        return View();
-    }
-
-    public IActionResult Privacy()
-    {
+        // string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        // ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+        List<Treat> allTreats = _db.Treats.ToList();
+        List<Flavor> allFlavors = _db.Flavors.ToList();
+        ViewBag.allTreats = allTreats;
+        ViewBag.allFlavors = allFlavors;
         return View();
     }
 

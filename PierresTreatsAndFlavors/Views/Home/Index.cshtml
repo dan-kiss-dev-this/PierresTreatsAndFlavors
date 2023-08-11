@@ -9,11 +9,22 @@
 </div>
 
 <hr>
+@* All Treats  *@
+<h4>@Html.ActionLink("All Treats", "Index", "Treats")</h4>
+@foreach(Treat treat in @ViewBag.allTreats)
+{
+    <h4>@treat.Name</h4>
+}
 
-<h4>All Treats</h4>
-
-@* <h4>Your Treats</h4> *@
+@* <h4>All Flavors</h4> *@
+<h4>@Html.ActionLink("All Flavors", "Index", "Flavors")</h4>
+@foreach(Flavor flavor in @ViewBag.allFlavors)
+{
+    <h4>@flavor.Description</h4>
+}
 
 @Html.ActionLink("Create or manage account", "Index", "AccountUser")
+@Html.ActionLink("See treats", "Index", "Treats")
+@Html.ActionLink("See flavors", "Index", "Flavors")
 
 
