@@ -1,7 +1,7 @@
 @if (User.Identity.IsAuthenticated)
 {
   <p>Hello @User.Identity.Name</p>
-  @using (Html.BeginForm("LogOff", "AccountUser"))
+  @using (Html.BeginForm("Logout", "AccountUser"))
   {
     <input type="submit" class="btn btn-primary" value="Log out">
   }
