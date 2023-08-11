@@ -19,8 +19,9 @@
 </ul>
 
 <p>@Html.ActionLink("Back to Treat List", "Index")</p>
+<p>@Html.ActionLink("Edit this treat", "Edit", new { id = Model.TreatId})</p>
+
+<p>@Html.ActionLink("Delete this treat", "Delete", new { id = Model.TreatId})</p>
 @* todo add error handeling if treat id does not exist *@
 @* todo do not show edit link if treat does not belong to user *@
 @* <p>@Html.ActionLink("Add a flavor to this Treat", "AddFlavor", new {id = Model.RecipeId})</p> *@
-@* <p>@Html.ActionLink("Edit this treat", "Edit", new { id = Model.TreatId})</p>
-<p>@Html.ActionLink("Delete this treat", "Delete", new { id = Model.TreatId})</p> *@
