@@ -32,7 +32,7 @@ else {
 <ul>
 @foreach(Flavor flavor in @ViewBag.allFlavors)
 {
-     <li>@Html.ActionLink(@flavor.Taste, "Create", "Flavors")</li>
+     <li>@Html.ActionLink(@flavor.Taste, "Details", "Flavors", new { id = @flavor.FlavorId})</li>
 }
 </ul>
 

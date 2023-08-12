@@ -1,0 +1,24 @@
+@{
+  Layout = "_Layout";
+}
+
+@using PierresTreatsAndFlavors.Models
+@model PierresTreatsAndFlavors.Models.Flavor
+
+<h2>Flavor Details</h2>
+<hr />
+<h3>@Html.DisplayNameFor(model => model.Taste): @Html.DisplayFor(model => model.Taste)</h3>
+<h3>@Html.DisplayNameFor(model => model.Description): @Html.DisplayFor(model => model.Description)</h3>
+
+<h4>Associated with the following treats</h4>
+<ul>
+  @foreach (FlavorTreat flavorTreat in Model.JoinFlavorTreats)
+  {
+    <li>
+      @flavorTreat.Treat.Name  
+      </li>
+  }
+</ul>
+
+<p>@Html.ActionLink("Back to Flavor List", "Index")</p>
+

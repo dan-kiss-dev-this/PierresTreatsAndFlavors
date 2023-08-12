@@ -50,5 +50,16 @@ namespace RecipeBox.Controllers
         return RedirectToAction("Index");
       }
     }
+
+    [AllowAnonymous]
+    public ActionResult Details(int id)
+    {
+      Flavor thisFlavor = _db.Flavors
+      .AsNoTracking()
+      .Include(flavor => flavor.JoinFlavorTreats)
+      .ThenInclude(join => join.Treat)
+      .FirstOrDefault(flavor => flavor.FlavorId == id);
+      return View(thisFlavor);
+    }
   }
 }
