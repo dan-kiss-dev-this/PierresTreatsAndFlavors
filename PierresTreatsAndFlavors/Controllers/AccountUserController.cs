@@ -40,7 +40,9 @@ namespace PierresTreatsAndFlavors.Controllers
       {
         ApplicationUser user = new ApplicationUser { UserName = model.Email };
         IdentityResult result = await _userManager.CreateAsync(user, model.Password);
-        if (result.Succeeded)
+
+        Microsoft.AspNetCore.Identity.SignInResult resultLogin = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, lockoutOnFailure: false);
+        if (resultLogin.Succeeded)
         {
           return RedirectToAction("Index", "Home");
         }

@@ -9,6 +9,15 @@
 </div>
 
 <hr>
+@if (User.Identity.IsAuthenticated)
+{
+  <h5>You are logged in @User.Identity.Name</h5>
+}
+else {
+    <h5>@Html.ActionLink("Create Account or Login", "Index", "AccountUser")</h5>
+}
+
+ <hr />
 @* All Treats  *@
 <h2>@Html.ActionLink("All Treats", "Index", "Treats")</h2>
 <ul>
