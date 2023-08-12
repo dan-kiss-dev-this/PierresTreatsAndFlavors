@@ -11,6 +11,7 @@
 <br>
 <h3>@Html.DisplayNameFor(model => model.Description): @Html.DisplayFor(model => model.Description)</h3>
 
+<h4>Associated with the following tastes</h4>
 <ul>
   @foreach (FlavorTreat flavorTreat in Model.JoinFlavorTreats)
   {
