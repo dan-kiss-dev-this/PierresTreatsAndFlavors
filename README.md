@@ -64,7 +64,7 @@ As Entity Framework Core is used with the standard naming convention there is no
 * _navigate to the Factory folder and run_
 * _$ dotnet restore_
 * _run $ dotnet run_
-* _Go to localhost:7129_
+* _Go to localhost:7143_
 * _Click Create Account or Login_
 * _Click Register_
 * _Fill out the info and click create account_
