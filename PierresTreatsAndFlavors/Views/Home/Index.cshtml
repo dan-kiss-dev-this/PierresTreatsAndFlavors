@@ -10,21 +10,27 @@
 
 <hr>
 @* All Treats  *@
-<h4>@Html.ActionLink("All Treats", "Index", "Treats")</h4>
+<h2>@Html.ActionLink("All Treats", "Index", "Treats")</h2>
+<ul>
 @foreach(Treat treat in @ViewBag.allTreats)
 {
-    <h4>@treat.Name</h4>
+    <li>@Html.ActionLink(@treat.Name, "Details", "Treats", new { id = @treat.TreatId})</li>
 }
+</ul>
 
 @* <h4>All Flavors</h4> *@
-<h4>@Html.ActionLink("All Flavors", "Index", "Flavors")</h4>
+<h2>@Html.ActionLink("All Flavors", "Index", "Flavors")</h2>
+<ul>
 @foreach(Flavor flavor in @ViewBag.allFlavors)
 {
-    <h4>@flavor.Description</h4>
+     <li>@Html.ActionLink(@flavor.Taste, "Create", "Flavors")</li>
 }
+</ul>
 
 @Html.ActionLink("Create or manage account", "Index", "AccountUser")
+<br />
 @Html.ActionLink("See treats", "Index", "Treats")
+<br />
 @Html.ActionLink("See flavors", "Index", "Flavors")
 
 
