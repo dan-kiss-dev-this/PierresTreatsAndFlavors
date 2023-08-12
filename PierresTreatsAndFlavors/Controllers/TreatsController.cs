@@ -8,6 +8,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace PierresTreatsAndFlavors.Controllers
 {
@@ -118,5 +119,35 @@ namespace PierresTreatsAndFlavors.Controllers
     {
       return View();
     }
+
+    public ActionResult AddFlavor(int id)
+    {
+      Treat thisTreat = _db.Treats.FirstOrDefault(recipe => recipe.TreatId == id);
+      ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "Taste");
+      return View(thisTreat);
+    }
+    [HttpPost]
+    public ActionResult AddFlavor(Treat treat, int flavorId)
+    {
+#nullable enable
+      FlavorTreat? joinFlavorTreats = _db.FlavorTreats.FirstOrDefault(join => join.FlavorId == flavorId && join.TreatId == treat.TreatId);
+#nullable disable
+      if (joinFlavorTreats == null && flavorId != 0)
+      {
+        _db.FlavorTreats.Add(new FlavorTreat() { FlavorId = flavorId, TreatId = treat.TreatId });
+        _db.SaveChanges();
+      }
+      return RedirectToAction("Details", new { id = treat.TreatId });
+    }
+
+    public ActionResult DeleteFlavor(int id, int treatId)
+    {
+      FlavorTreat join = _db.FlavorTreats
+      .FirstOrDefault(join => (join.FlavorId == id && join.TreatId == treatId));
+      _db.FlavorTreats.Remove(join);
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = join.TreatId });
+    }
+
   }
 }
