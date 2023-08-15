@@ -95,22 +95,10 @@ namespace PierresTreatsAndFlavors.Controllers
       {
         string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-        Console.WriteLine(9797);
-        Console.WriteLine(treat.User.Id);
-        if (treat.User.Id == currentUser.Id)
-        {
-          _db.Treats.Update(treat);
-          _db.SaveChanges();
-          return RedirectToAction("Index");
-        }
-        else
-        {
-          return RedirectToAction("NotAllowed");
-        }
-        // _db.Treats.Update(treat);
-        // _db.SaveChanges();
-        // return RedirectToAction("Index");
-
+   
+        _db.Treats.Update(treat);
+        _db.SaveChanges();
+        return RedirectToAction("Index");
       }
     }
 
