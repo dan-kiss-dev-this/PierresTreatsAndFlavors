@@ -9,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.ConfigureApplicationCookie(options => options.LoginPath = "/AccountUser/Login");
+
 builder.Services.AddDbContext<PierresTreatsAndFlavorsContext>(
     dbContextOptions => dbContextOptions
         .UseMySql(
